@@ -45,7 +45,6 @@ Password: `1234`
 Hostname: `LeftMiniFactory`
 Password: `1234`
 
-
 # Install new Image and configs
 
 To install follow Tutorial: [https://revolutionpi.com/en/tutorials/images/install-jessie]()
@@ -67,7 +66,7 @@ Add University NTP server to allow timesync in uni network
 * Add Line `NTP=rustime01.rus.uni-stuttgart.de rustime02.rus.uni-stuttgart.de`
 * `systemctl restart systemd-timesyncd.service`
 
-Upload config if (RevPiCommander doesn't work:
+Upload config if RevPiCommander doesn't work:
 
 ```bash
 copy file to /tmp
@@ -84,7 +83,13 @@ sudo apt install pip
 
 Disable not needed Services:
 
-[https://revolutionpi.com/en/tutorials/software-2/activating-deactivating-services]()
+[https://revolutionpi.com/en/tutorials/software-2/activating-deactivating-services](https://revolutionpi.com/en/tutorials/software-2/activating-deactivating-services)
+
+Using PiCtory to configer the modules on the controller
+
+* Got the the website found under the hostname of the controller (for example [minifactory/]())
+* log in login should be set to `admin` with pw `hiwi1234`
+  * if not std login can be found on the right hand side of the controller
 
 ## Setup MiniFactory-Controller
 
@@ -111,6 +116,43 @@ sudo systemctl restart mosquitto
 * Clone [MQTT](https://github.tik.uni-stuttgart.de/IAS-MiniFactory/MQTT) into `/var/lib/revpiload/`
 * add `mqtt_receive.py` as PLC programm (with RevPiCommander)
   * create log folder in `/var/lib/revpiload/`
+
+Install and set up dev webserver (should be replaced with apache))
+
+* install pip
+* `sudo pip install django`
+* disable apache2
+* run with `sudo python manage.py runserver 0.0.0.0:80 `find site at [minifactory/](minifactory/)
+* setup service for webserver
+* `sudo nano webshop.service`
+
+```
+[Unit]
+Description=Hosting webshop
+After=network.target
+
+[Service]
+WorkingDirectory=/var/lib/revpipyload/WebShop
+ExecStart=/usr/bin/python /var/lib/revpipyload/WebShop/manage.py runserver 0.0.0.0:80
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target
+```
+
+execute
+
+```
+sudo systemctl daemon-reload
+sudo systemctl enable "webshop"
+sudo systemctl start "webshop"
+sudo systemctl status "webshop"
+```
+
+enter [minifactory/](minifactory/) or [http://minifactory/](http://minifactory/)
+
+
 
 ## Setup MiniFactory-PLC
 
