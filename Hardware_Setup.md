@@ -94,10 +94,11 @@ Using PiCtory to configer the modules on the controller
 ## Setup MiniFactory-Controller
 
 * Config hostname to `MiniFactory`
-* Install and enable mqtt-Broker
 
-  * Broker Address: `"MiniFactory"` if installt on MiniFactory Host
-  * Port: `1883`
+### Install and enable mqtt-Broker
+
+* Broker Address: `"MiniFactory"` if installt on MiniFactory Host
+* Port: `1883`
 
 ```bash
 sudo apt-get install mosquitto
@@ -117,14 +118,29 @@ sudo systemctl restart mosquitto
 * add `mqtt_receive.py` as PLC programm (with RevPiCommander)
   * create log folder in `/var/lib/revpiload/`
 
-Install and set up dev webserver (should be replaced with apache))
+### Install and deploy Webshop
 
-* install pip
-* `sudo pip install django`
-* disable apache2
+```
+sudo apt install pip
+sudo pip install django
+sudo pip install pillow
+```
+
 * run with `sudo python manage.py runserver 0.0.0.0:80 `find site at [minifactory/](minifactory/)
-* setup service for webserver
-* `sudo nano webshop.service`
+
+### Install and set up dev webserver (should be replaced with apache))
+
+Disable apache2
+
+```
+sudo systemctl stop apache2
+sudo systemctl disable apache2
+```
+
+Create service
+`sudo nano webshop.service`
+
+copy into service file
 
 ```
 [Unit]
@@ -152,7 +168,7 @@ sudo systemctl status "webshop"
 
 enter [minifactory/](minifactory/) or [http://minifactory/](http://minifactory/)
 
-
+Doc for webshop found at [WebShop/webshop_doc.md](https://github.tik.uni-stuttgart.de/IAS-MiniFactory/WebShop/blob/main/webshop_doc.md "webshop_doc.md")
 
 ## Setup MiniFactory-PLC
 
