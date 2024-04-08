@@ -3,17 +3,17 @@
 ## Abbreviations
 
 | Abbreviation | Meaning                                                |
-| ----------- | ------------------------------------------------------ |
-| SENS        | Light barrier (have an LED and an Light sensor)        |
-| REF_SWITCH  | Reference switch, to find a start position for an axis |
-| CB          | Conveyer belt                                           |
-| GR          | 3D-Robot with claw attachment                          |
-| VG          | 3D-Robot with vacuum gripper attachment                 |
-| MPS         | Multi Purpose Station                                   |
-| PM          | Punching Machine                                       |
-| SL          | Sorting Line                                           |
-| INDX        | Index line with drill and mill                         |
-| WH          | Warehouse                                              |
+| ------------ | ------------------------------------------------------ |
+| SENS         | Light barrier (have an LED and an Light sensor)        |
+| REF_SWITCH   | Reference switch, to find a start position for an axis |
+| CB           | Conveyer belt                                          |
+| GR           | 3D-Robot with claw attachment                          |
+| VG           | 3D-Robot with vacuum gripper attachment                |
+| MPS          | Multi Purpose Station                                  |
+| PM           | Punching Machine                                       |
+| SL           | Sorting Line                                           |
+| INDX         | Index line with drill and mill                         |
+| WH           | Warehouse                                              |
 
 ## Debugging Tools
 
@@ -87,7 +87,14 @@ All important events are sent via MQTT
 Logs the important events.
 
 * Not persistent over reboot
-* Can only be read with RevPiCommander
+* Can only be read with RevPiCommander by selecting log on the interface
+
+### Detailed-Log
+
+Logs all events on the PLC
+
+* Includes the general-log
+* found on the plc at `/var/lib/revpiload/plc_code/log`
 
 ## Debugging Errors and Problems
 
